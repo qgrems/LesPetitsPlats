@@ -24,22 +24,23 @@ class Tags
         let ingredient=""
         let appliance=""
         let ustensils=""
+        console.log(this.value)
         if(this._type === 'ingredients')
         {
-            ingredient =`<p>ingredient</p>`
+            ingredient =`<p>${this.value}</p>`
         }
         if(this.type ==='appliance')
         {
-            appliance = `<p>appliance</p>`
+            appliance = `<p>${this.value}</p>`
         }
         if(this.type ==="ustensils")
         {
-            ustensils = `<p>ustensils</p>`
+            ustensils = `<p>${this.value}</p>`
         }
         const article = document.createElement('section');
         article.innerHTML = `
         <div>
-           ${appliance}
+          
         </div>
         
         `
