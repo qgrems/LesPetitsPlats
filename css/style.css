@@ -250,3 +250,68 @@ ul {
     font-weight:bold;
     font-size: 20px;
 }
+
+.tagButtonAppliance
+{
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    background-color: rgb(104, 217, 164);
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tagButtonIngredients
+{
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    background-color:rgb(50, 130, 247);
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tagButtonUstensils
+{
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    background-color:rgb(237, 100, 84);
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tagText
+{
+    color: white;
+    padding: 20px;
+    position: absolute;
+   
+}
+.quittags
+{
+    padding-left: 5rem;
+    color: white;
+    font-size: 22px;
+}
+#tags
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.tagButton
+{
+    padding-right: 10px;
+}
+.sizetexttags
+{
+    width: 50px;
+    height: 2px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    text-overflow: ellipsis;
+}

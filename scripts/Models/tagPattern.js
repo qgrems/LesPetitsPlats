@@ -4,8 +4,6 @@ class Tags
     {  
         this._value= value
         this._type = type
-        console.log(this._type)
-        console.log(this._value)
     }
 
     get value()
@@ -14,35 +12,34 @@ class Tags
     }
     get type()
     {
-        return this.type
+        return this._type
     }
 
 
     renderTags()
     {
-
-        let ingredient=""
-        let appliance=""
-        let ustensils=""
+        let tagFilter=""
         console.log(this.value)
+        console.log(this.type)
         if(this._type === 'ingredients')
         {
-            ingredient =`<p>${this.value}</p>`
+            tagFilter =`<div class="tagButtonIngredients"><div class="sizetexttags"><p class="tagText">${this.value}</p></div><i class="far fa-times-circle quittags" onclick=closeTags()></i></div>`
         }
         if(this.type ==='appliance')
         {
-            appliance = `<p>${this.value}</p>`
+            tagFilter = `<div class="tagButtonAppliance"><div class="sizetexttags"><p class="tagText">${this.value}</p> </div><i class="far fa-times-circle quittags" onclick=closeTags()></i></div>`
         }
-        if(this.type ==="ustensils")
+        if(this.type ==='ustensils')
         {
-            ustensils = `<p>${this.value}</p>`
+            tagFilter = `<div class="tagButtonUstensils"><div class="sizetexttags"><p class="tagText">${this.value}</p></div> <i class="far fa-times-circle quittags" onclick=closeTags()></i></div>`
+            
         }
-        const article = document.createElement('section');
+        const article = document.createElement('div');
+        article.classList.add("tagButton")
         article.innerHTML = `
-        <div>
-          
-        </div>
-        
+          ${tagFilter}
+         
         `
+        return article
     }
 }

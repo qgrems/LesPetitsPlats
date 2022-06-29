@@ -49,7 +49,9 @@ class Search
                 <input id="ingredients" type="text" placeholder="Ingredients" onclick=launchModalIngredients()></input>
             <div class="arrow"><p id="arrowIngredients"><i class="fas fa-chevron-down"></i></p></div>
             </div>
-            <ul  class="modalFilterIngredients">${ingredients}</ul>
+            <div class="card_filer">
+                <ul class="modalFilterIngredients"></ul>
+            </div>
         </div>
         
         <div class="appareils">
@@ -57,7 +59,9 @@ class Search
                 <input id="appareils" type="text" placeholder="Appareils" onclick=launchModalAppareils()></input>
                 <div class="arrow"><p id="arrowAppareils"><i class="fas fa-chevron-down"></i></p></div>
             </div>
-            <ul class="modalFilterAppareils">${appliance}</ul>
+            <div class="card_filer">
+                <ul class="modalFilterAppareils"></ul>
+            </div>
         </div>
 
         <div class="ustensiles">
@@ -65,7 +69,9 @@ class Search
                 <input id="ustensiles" type="text" placeholder="Ustensiles" onclick=launchModalUstensils()></input>
                 <div class="arrow"><p id="arrowUstensils"><i class="fas fa-chevron-down"></i></p></div>
             </div>
-            <ul class="modalFilterUstensiles">${ustensils}</ul>
+            <div class="card_filer">
+                <ul class="modalFilterUstensiles"></ul>
+            </div>
         </div>
         `
         return article

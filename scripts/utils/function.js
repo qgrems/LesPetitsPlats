@@ -11,16 +11,18 @@ function actualisationSelectBox(menuRestant)
                 tabIngredients[menu.ingredients[j].ingredient] = menu.ingredients[j].ingredient
 
         }
-        for(let j in menu)
+        for(let j in menu.ustensils)
         {
-            tabUstensiles[menu.ustensils] = menu.ustensils
+            tabUstensiles[menu.ustensils[j]] = menu.ustensils[j]
         }
-        for(let j in menu)
-        {
+        
             tabAppareils[menu.appliance] = menu.appliance
-        }
+        
 
     });
     return {tabIngredients,tabAppareils,tabUstensiles}
 }
+
+//function triage
+
 
