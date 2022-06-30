@@ -31,123 +31,124 @@ class App
         tabIngredients = retourfiltre.tabIngredients
         tabAppareils = retourfiltre.tabAppareils
         tabUstensiles = retourfiltre.tabUstensiles
-        
+        let tableauAppareil =[]
+        tableauAppareil.push(tabAppareils)
+       
         let filters
         let filter
         filters = new Search()
         filter = filters.renderSearch()
         this.search.appendChild(filter)
-        this.render()
-
+        this.renderMenu()
         this.tagIngredients = document.querySelector(".modalFilterIngredients")
         FiltersIngredients = new IngredientsTags(tabIngredients)
         filterIngredient=FiltersIngredients.rendertags()
         this.tagIngredients.appendChild(filterIngredient)
 
         this.tagAppareil = document.querySelector(".modalFilterAppareils")
-        filtersAppareils= new AppareilsTags(tabAppareils)
-        filterAppareil = filtersAppareils.rendertags()
-        this.tagAppareil.appendChild(filterAppareil)
+        this.filtersAppareils= new AppareilsTags(tabAppareils, tabIndex(tableauAppareil))
+        this.filterAppareil = this.filtersAppareils.rendertags()
+        this.tagAppareil.appendChild(this.filterAppareil)
 
         this.tagsUstensils = document.querySelector(".modalFilterUstensiles")
         filtersUstensils= new UstensilsTags(tabUstensiles)
         filterUstensil = filtersUstensils.rendertags()
         this.tagsUstensils.appendChild(filterUstensil)
-        
+       
+
+        const searchIngredients = document.getElementById('ingredients')
+        const searchAppareils = document.getElementById('appareils') ;
+        const searchUstensils = document.getElementById('ustensiles')
+
         const searchBarre = document.getElementById('search_value')
         searchBarre.addEventListener('keyup', () =>{
             if(search_value.value.length >=3)
             {
-                document.querySelector(".page_section").innerHTML=""
-                const input = searchBarre.value
-                this.tagIngredients.innerHTML=""
-                this.tagAppareil.innerHTML=""
-                this.tagsUstensils.innerHTML=""
-                let resultatFiltre =menuData.recipes.filter(menu=>(menu.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.appliance.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.description.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[0].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[1].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())))
-                this.menufiltre=resultatFiltre
-                let retourfiltre = actualisationSelectBox(this.menufiltre)
-
-                tabIngredients = retourfiltre.tabIngredients
-                tabAppareils = retourfiltre.tabAppareils
-                tabUstensiles = retourfiltre.tabUstensiles
-                this.render()
-
-                this.tagIngredients = document.querySelector(".modalFilterIngredients")
-                FiltersIngredients = new IngredientsTags(tabIngredients)
-                filterIngredient=FiltersIngredients.rendertags()
-                this.tagIngredients.appendChild(filterIngredient)
+                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                searchAppareils.addEventListener('keyup', () =>{
+                    if(searchAppareils.value.length>=3)
+                    {
+                        triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+                    }
+                    if (searchAppareils.value.length<3)
+                    {
+                        triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                    }
+                })
+                searchIngredients.addEventListener('keyup',() =>{
+                    if(searchIngredients.value.length>=3)
+                    { 
+                        triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
+                    }
+                    if(searchIngredients.value.length<3)
+                    { 
+                        triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                    }
+                })
+                // tri a l'écrit pour les tags des Ustensiles
                 
-                this.tagAppareil = document.querySelector(".modalFilterAppareils")
-                filtersAppareils= new AppareilsTags(tabAppareils)
-                filterAppareil = filtersAppareils.rendertags()
-                this.tagAppareil.appendChild(filterAppareil)
-                this.tagsUstensils = document.querySelector(".modalFilterUstensiles")
-                filtersUstensils= new UstensilsTags(tabUstensiles)
-                filterUstensil = filtersUstensils.rendertags()
-                this.tagsUstensils.appendChild(filterUstensil)
-            //
+                searchUstensils.addEventListener('keyup',() =>{
+                    if(searchUstensils.value.length>=3)
+                    {
+                        triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
+                    }
+                    if(searchUstensils.value.length<3)
+                    {
+                        triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                    }
+                })
             }
+
+
             else 
             {
                 document.querySelector(".page_section").innerHTML=""
                 this.menufiltre = [...menuData.recipes]
-                this.render();
+                this.renderMenu();
             }
         })
-       
-            let allUstensile = this.menufiltre.map(ust => this.menufiltre)
            
         // tri a l'écrit pour les tags des appareils
-        const searchAppareils = document.getElementById('appareils') ;
+       
         searchAppareils.addEventListener('keyup', () =>{
-            this.tagAppareil.innerHTML=""
-            const valueAppareils = searchAppareils.value
-            let resultatFiltreAppareils =menuData.recipes.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(valueAppareils.toLocaleLowerCase())))
-            this.menufiltre=resultatFiltreAppareils
-            let retourappareil = actualisationSelectBox(this.menufiltre)
-            tabAppareils = retourappareil.tabAppareils
-            this.tagAppareil = document.querySelector(".modalFilterAppareils")
-            filtersAppareils= new AppareilsTags(tabAppareils)
-            filterAppareil = filtersAppareils.rendertags()
-            this.tagAppareil.appendChild(filterAppareil)
+            if(searchAppareils.value.length>=3)
+            {
+                triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+            }
+            if (searchAppareils.value.length<3)
+            {
+                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+            }
         })
         // tri a l'écrit pour les tags des ingredients
-        const searchIngredients = document.getElementById('ingredients')
+       
         searchIngredients.addEventListener('keyup',() =>{
-            
-            this.tagIngredients.innerHTML=""
-            const valueIngredients = searchIngredients.value
-            let resultatFilterIngredients = menuData.recipes.filter(menu=>(menu.ingredients[0,1].ingredient.toLocaleLowerCase().includes(valueIngredients.toLocaleLowerCase())))
-            this.menufiltre=resultatFilterIngredients
-            let retourIngredient = actualisationSelectBox(this.menufiltre)
-            tabIngredients = retourIngredient.tabIngredients
-            this.tagIngredients = document.querySelector(".modalFilterIngredients")
-            FiltersIngredients = new IngredientsTags(tabIngredients)
-            filterIngredient = FiltersIngredients.rendertags()
-            this.tagIngredients.appendChild(filterIngredient)
-
-            })
-
+            if(searchIngredients.value.length>=3)
+            { 
+                triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
+            }
+            if(searchIngredients.value.length<3)
+            { 
+                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+            }
+        })
         // tri a l'écrit pour les tags des Ustensiles
-        const searchUstensils = document.getElementById('ustensiles')
+        
         searchUstensils.addEventListener('keyup',() =>{
-            this.tagsUstensils.innerHTML=""
-            const valueUstensils = searchUstensils.value
-            let resultatFilterUstensils = menuData.recipes.filter(menu=>(menu.ustensils[0].toLocaleLowerCase().includes(valueUstensils.toLocaleLowerCase())))
-            this.menufiltre=resultatFilterUstensils
-            console.log(this.menufiltre)
-            let retourUstensils = actualisationSelectBox(this.menufiltre)
-            tabUstensiles = retourUstensils.tabUstensiles
-            this.tagsUstensils = document.querySelector(".modalFilterUstensiles")
-            filtersUstensils = new UstensilsTags(tabUstensiles)
-            filterUstensil = filtersUstensils.rendertags()
-            this.tagsUstensils.appendChild(filterUstensil)
+            if(searchUstensils.value.length>=3)
+            {
+                triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
+            }
+            if(searchUstensils.value.length<3)
+            {
+                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+            }
         })
 
 
     }
     
-    render()
+    renderMenu()
     {
         let filters
         let filter
@@ -158,10 +159,12 @@ class App
             const userCardDOM = menuModel.render();
             this.pageSection.appendChild(userCardDOM);
         });
-    
     }
+   
      ajouFiltreActif(type,value)
     {
+        let valeurTags ="true"
+        triageTags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.filtersAppareils,this.filterIngredient,valeurTags)
         let tag
         let tagActif
         this.tags= document.querySelector("#tags");
@@ -170,7 +173,6 @@ class App
         this.tags.appendChild(tagActif)
     }
 }
-
 
 const app = new App()
 app.main();

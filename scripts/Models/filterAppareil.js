@@ -1,16 +1,19 @@
 class AppareilsTags
 {
-    constructor(tabAppliance)
+    constructor(tabAppliance,tabAppareil)
     {
         this._appliance = tabAppliance
-
+        this._appareil= tabAppareil
     }
 
     get appliance()
     {
         return this._appliance
     }
-
+    get appareil()
+    {
+        return this._appareil
+    }
 
 
     rendertags()
@@ -20,7 +23,7 @@ class AppareilsTags
 
         for (let i in this._appliance)
         {
-                appliance += `<li class="positionfiltercomposants ingredient" onclick ='app.ajouFiltreActif("appliance","${this.appliance[i]}")'>${this.appliance[i]}</li>`
+                appliance += `<li class="positionfiltercomposants ingredient" tabindex="${this.appareil}" onclick ='app.ajouFiltreActif("appliance","${this.appliance[i]}")'>${this.appliance[i]}</li>`
         }
 
 
