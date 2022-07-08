@@ -17,10 +17,11 @@ class IngredientsTags
         let ingredients=""
 
         let tab=[]
-
+        let index = 0
         for (let i in this._ingredients)
         {
-                ingredients += `<li  class="positionfiltercomposants ingredient"  onClick ='app.ajouFiltreActif("ingredients","${this.ingredients[i]}")'>${this.ingredients[i]}</li>`
+            index++
+            ingredients += `<li  class="positionfiltercomposants ingredient" tabindex="${index}" onClick ='app.ajouFiltreActif("ingredients","${this.ingredients[i]}","${index}")'>${this.ingredients[i]}</li>`
               
         }
 

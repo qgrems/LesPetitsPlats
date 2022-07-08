@@ -16,10 +16,11 @@ class UstensilsTags
     {
         let ustensils=""
         let tab=[]
-
+        let index = 0
         for (let i in this.ustensils)
         {
-            ustensils += `<li  class="positionfiltercomposants ingredient"  onClick ='app.ajouFiltreActif("ustensils","${this.ustensils[i]}")'>${this.ustensils[i]}</li>`
+            index++
+            ustensils += `<li  class="positionfiltercomposants ingredient" tabindex="${index}" onClick ='app.ajouFiltreActif("ustensils","${this.ustensils[i]}","${index}")'>${this.ustensils[i]}</li>`
         }
 
         const p = document.createElement('p');

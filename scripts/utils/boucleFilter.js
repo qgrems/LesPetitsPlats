@@ -36,20 +36,61 @@ let tabIngredients={}
 let tabAppareils = {}
 let tabUstensiles = {}
 let tableauingredient = {}
-let newDatas =[]
+
 // triage des cards avec La recherche principale + triage des tags en fonction de la recherche principale
 function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUstensils,searchBarre)
 {
+    
     document.querySelector(".page_section").innerHTML=""
     const input = searchBarre.value
     tagIngredients.innerHTML=""
     tagAppareil.innerHTML=""
     tagsUstensils.innerHTML=""
     pageSection.innerHTML=""
-    let resultatFiltre =menuData.recipes.filter(menu=>(menu.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.appliance.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.description.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[0].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[1].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())))
+
+    let datas = menuData.recipes 
+    let datasName
+    let datasAppliance
+    let datasIngredients
+    let datasdescription
+    let datasIngredient
     
-    this.menufiltre=resultatFiltre
-    this.retourfiltre = actualisationSelectBox(this.menufiltre)
+    for(let i in datas)
+        {
+            datasName=datas[i].name
+            datasAppliance=datas[i].appliance
+            datasIngredients = datas[i].ingredients
+            datasdescription = datas[i].description
+            if (datasName.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
+                {
+                    datasName = datas[i].name
+                }
+
+            
+            if (datasAppliance.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
+                {
+                    datasAppliance = datas[i].appliance
+                    newDatas.push(datas[i])
+                }
+            
+            for(let j in datasIngredients)
+                {
+                    datasIngredient = datasIngredients[j].ingredient
+                    if(datasIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
+                        {
+                            newDatas.push(datas[i])
+                        }
+                }
+           
+            if(datasdescription.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
+                {
+                    newDatas.push(datas[i])
+                }
+        }
+
+    
+    this.menufiltre=newDatas
+    this.retourfiltre = actualisationSelectBox(newDatas)
 
     rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
     

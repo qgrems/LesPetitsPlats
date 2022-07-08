@@ -1,9 +1,10 @@
 class Tags
 {
-    constructor(type,value)
+    constructor(type,value,index)
     {  
         this._value= value
         this._type = type
+        this._index = index
     }
 
     get value()
@@ -14,24 +15,25 @@ class Tags
     {
         return this._type
     }
-
+    get index()
+    {
+        return this._index
+    }
 
     renderTags()
-    {
+    {     
         let tagFilter=""
-        console.log(this.value)
-        console.log(this.type)
         if(this._type === 'ingredients')
         {
-            tagFilter =`<div class="tagButtonIngredients"><div class="sizetexttags"><p class="tagText">${this.value}</p></div><i class="far fa-times-circle quittags" onclick=closeTags()></i></div>`
+            tagFilter =`<div class="tagButtonIngredients"><div class="sizetexttags"><p class="tagText">${this.value}</p></div><i class="far fa-times-circle quittags" onclick=closeTagsIngredients("${this.index}")></i></div>`
         }
         if(this.type ==='appliance')
         {
-            tagFilter = `<div class="tagButtonAppliance"><div class="sizetexttags"><p class="tagText">${this.value}</p> </div><i class="far fa-times-circle quittags" onclick=closeTags()></i></div>`
+            tagFilter = `<div class="tagButtonAppliance ${this.index}"><div class="sizetexttags"><p class="tagText">${this.value}</p> </div><i class="far fa-times-circle quittags" onclick=closeTagsAppareils("${this.index}")></i></div>`
         }
         if(this.type ==='ustensils')
         {
-            tagFilter = `<div class="tagButtonUstensils"><div class="sizetexttags"><p class="tagText">${this.value}</p></div> <i class="far fa-times-circle quittags" onclick=closeTags()></i></div>`
+            tagFilter = `<div class="tagButtonUstensils"><div class="sizetexttags"><p class="tagText">${this.value}</p></div> <i class="far fa-times-circle quittags" onclick=closeTagsUstensils("${this.index}")></i></div>`
             
         }
         const article = document.createElement('div');

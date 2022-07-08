@@ -33,7 +33,6 @@ class App
         tabUstensiles = retourfiltre.tabUstensiles
         let tableauAppareil =[]
         tableauAppareil.push(tabAppareils)
-       
         let filters
         let filter
         filters = new Search()
@@ -46,7 +45,7 @@ class App
         this.tagIngredients.appendChild(filterIngredient)
 
         this.tagAppareil = document.querySelector(".modalFilterAppareils")
-        this.filtersAppareils= new AppareilsTags(tabAppareils, tabIndex(tableauAppareil))
+        this.filtersAppareils= new AppareilsTags(tabAppareils, tabIndex(tabAppareils))
         this.filterAppareil = this.filtersAppareils.rendertags()
         this.tagAppareil.appendChild(this.filterAppareil)
 
@@ -73,6 +72,7 @@ class App
                     if (searchAppareils.value.length<3)
                     {
                         triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                        triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
                     }
                 })
                 searchIngredients.addEventListener('keyup',() =>{
@@ -97,11 +97,15 @@ class App
                         triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
                     }
                 })
+
             }
 
 
             else 
             {
+                triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+                triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
+                triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
                 document.querySelector(".page_section").innerHTML=""
                 this.menufiltre = [...menuData.recipes]
                 this.renderMenu();
@@ -120,6 +124,7 @@ class App
                 triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
             }
         })
+        
         // tri a l'écrit pour les tags des ingredients
        
         searchIngredients.addEventListener('keyup',() =>{
@@ -160,15 +165,14 @@ class App
             this.pageSection.appendChild(userCardDOM);
         });
     }
-   
-     ajouFiltreActif(type,value)
+    ajouFiltreActif(type,value,index)
     {
-        let valeurTags ="true"
-        triageTags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.filtersAppareils,this.filterIngredient,valeurTags)
+        console.log(index)
+        triageTags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
         let tag
         let tagActif
         this.tags= document.querySelector("#tags");
-        tag = new Tags(type,value)
+        tag = new Tags(type,value,index)
         tagActif = tag.renderTags()
         this.tags.appendChild(tagActif)
     }

@@ -14,16 +14,17 @@ class AppareilsTags
     {
         return this._appareil
     }
-
-
+  
     rendertags()
     {
         let appliance=""
         let tab=[]
+        let index = 0
 
         for (let i in this._appliance)
         {
-                appliance += `<li class="positionfiltercomposants ingredient" tabindex="${this.appareil}" onclick ='app.ajouFiltreActif("appliance","${this.appliance[i]}")'>${this.appliance[i]}</li>`
+            index++
+            appliance += `<li id="ok" class="positionfiltercomposants ingredient" tabindex="${index}" onclick ='app.ajouFiltreActif("appliance","${this.appliance[i]}","${index}")'>${this.appliance[i]}</li>`
         }
 
 
