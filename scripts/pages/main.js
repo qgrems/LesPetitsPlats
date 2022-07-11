@@ -6,7 +6,6 @@ class App
         this.pageSection = document.querySelector(".page_section");
         this.search = document.querySelector("#containerSearch");
         this.modalFilterAppliance= document.querySelector('card_filer');
-        
         this.pageApi = new MenuApi ('./data/menu.json');
     }
     
@@ -69,20 +68,11 @@ class App
                     {
                         triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
                     }
-                    if (searchAppareils.value.length<3)
-                    {
-                        triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
-                        triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
-                    }
                 })
                 searchIngredients.addEventListener('keyup',() =>{
                     if(searchIngredients.value.length>=3)
                     { 
                         triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
-                    }
-                    if(searchIngredients.value.length<3)
-                    { 
-                        triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
                     }
                 })
                 // tri a l'écrit pour les tags des Ustensiles
@@ -92,14 +82,8 @@ class App
                     {
                         triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
                     }
-                    if(searchUstensils.value.length<3)
-                    {
-                        triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
-                    }
                 })
-
             }
-
 
             else 
             {
@@ -121,7 +105,7 @@ class App
             }
             if (searchAppareils.value.length<3)
             {
-                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
             }
         })
         
@@ -134,7 +118,7 @@ class App
             }
             if(searchIngredients.value.length<3)
             { 
-                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
             }
         })
         // tri a l'écrit pour les tags des Ustensiles
@@ -146,11 +130,9 @@ class App
             }
             if(searchUstensils.value.length<3)
             {
-                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
+                triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
             }
         })
-
-
     }
     
     renderMenu()
@@ -177,6 +159,5 @@ class App
         this.tags.appendChild(tagActif)
     }
 }
-
 const app = new App()
 app.main();

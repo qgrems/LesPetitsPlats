@@ -40,7 +40,6 @@ class Tags
         article.classList.add("tagButton")
         article.innerHTML = `
           ${tagFilter}
-         
         `
         return article
     }

@@ -15,10 +15,10 @@ function closeModalFilter()
 
 function launchModalIngredients(dataIngredients)
 {
-    document.querySelector('.ingredients').style.width= "320px"
+    document.querySelector('.ingredients').style.width= "310px"
     document.querySelector('.appareils').style.width= "150px"
     document.querySelector('.ustensiles').style.width= "150px"
-    document.querySelector('.modalFilterIngredients').style.width= "320px"
+    document.querySelector('.modalFilterIngredients').style.width= "310px"
     document.querySelector('#arrowIngredients').classList.add('rotate');
     document.querySelector('#arrowAppareils').classList.remove('rotate');
     document.querySelector('#arrowUstensils').classList.remove('rotate');
@@ -31,8 +31,8 @@ function launchModalAppareils(dataAppareils)
 {
     document.querySelector('.ingredients').style.width= "150px"
     document.querySelector('.ustensiles').style.width= "150px"
-    document.querySelector('.appareils').style.width= "320px"
-    document.querySelector('.modalFilterAppareils').style.width= "320px"
+    document.querySelector('.appareils').style.width= "310px"
+    document.querySelector('.modalFilterAppareils').style.width= "310px"
     document.querySelector('#arrowUstensils').classList.remove('rotate');
     document.querySelector('#arrowIngredients').classList.remove('rotate');
     document.querySelector('#arrowAppareils').classList.add('rotate');
@@ -45,8 +45,8 @@ function launchModalUstensils(dataUstensils)
 {
     document.querySelector('.ingredients').style.width= "150px"
     document.querySelector('.appareils').style.width= "150px"
-    document.querySelector('.ustensiles').style.width= "320px"
-    document.querySelector('.modalFilterUstensiles').style.width= "320px"
+    document.querySelector('.ustensiles').style.width= "310px"
+    document.querySelector('.modalFilterUstensiles').style.width= "310px"
     document.querySelector('#arrowIngredients').classList.remove('rotate');
     document.querySelector('#arrowAppareils').classList.remove('rotate');
     document.querySelector('#arrowUstensils').classList.add('rotate');

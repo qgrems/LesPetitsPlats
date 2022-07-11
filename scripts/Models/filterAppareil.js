@@ -24,7 +24,7 @@ class AppareilsTags
         for (let i in this._appliance)
         {
             index++
-            appliance += `<li id="ok" class="positionfiltercomposants ingredient" tabindex="${index}" onclick ='app.ajouFiltreActif("appliance","${this.appliance[i]}","${index}")'>${this.appliance[i]}</li>`
+            appliance += `<li class="positionfiltercomposants ingredient" tabindex="${index}" onclick ='app.ajouFiltreActif("appliance","${this.appliance[i]}","${index}")'>${this.appliance[i]}</li>`
         }
 
 

@@ -17,12 +17,9 @@ function actualisationSelectBox(menuRestant)
         }
         
             tabAppareils[menu.appliance] = menu.appliance
-        
-
     });
     return {tabIngredients,tabAppareils,tabUstensiles}
 }
-
 
 this.pageSection = document.querySelector(".page_section");
 let FiltersIngredients
@@ -40,7 +37,6 @@ let tableauingredient = {}
 // triage des cards avec La recherche principale + triage des tags en fonction de la recherche principale
 function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUstensils,searchBarre)
 {
-    
     document.querySelector(".page_section").innerHTML=""
     const input = searchBarre.value
     tagIngredients.innerHTML=""
@@ -54,7 +50,7 @@ function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUste
     let datasIngredients
     let datasdescription
     let datasIngredient
-    
+    let newDatas =[]
     for(let i in datas)
         {
             datasName=datas[i].name
@@ -64,15 +60,13 @@ function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUste
             if (datasName.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
                 {
                     datasName = datas[i].name
+                    newDatas.push(datas[i])
                 }
-
-            
             if (datasAppliance.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
                 {
                     datasAppliance = datas[i].appliance
                     newDatas.push(datas[i])
                 }
-            
             for(let j in datasIngredients)
                 {
                     datasIngredient = datasIngredients[j].ingredient
@@ -81,19 +75,14 @@ function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUste
                             newDatas.push(datas[i])
                         }
                 }
-           
             if(datasdescription.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
                 {
                     newDatas.push(datas[i])
                 }
         }
-
-    
     this.menufiltre=newDatas
     this.retourfiltre = actualisationSelectBox(newDatas)
-
     rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
-    
     reaffichage()
 }
 
@@ -126,7 +115,6 @@ function triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngr
             }
         }
         return false
-        //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(valueIngredients.toLocaleLowerCase())))
     })
         
     this.menufiltre=resultatFilterIngredients
@@ -174,16 +162,14 @@ function triageTags(type,value,menuData,tagAppareil,filtersAppareils,filterAppar
             tagsUstensils.innerHTML=""
             this.pageSection.innerHTML=""
             let resultatFiltreIngredients =menuData.filter(menu=>{
-            
                 for(let i in menu.ingredients)
                 {
                     if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                    {
+                    {                        
                         return true
                     }
                 }
                 return false
-                //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
             })
             this.menufiltre=resultatFiltreIngredients
         }
@@ -198,8 +184,6 @@ function triageTags(type,value,menuData,tagAppareil,filtersAppareils,filterAppar
         }
         console.log(this.menufiltre)
         let retourfiltre = actualisationSelectBox(this.menufiltre)
-        
-       
         reaffichage()
 }
 function reaffichage()
@@ -220,7 +204,6 @@ function allUstensils(ustensils)
         tabUstensiles[ustensils[j]] = ustensils[j]
         return (tabUstensiles[ustensils[j]])
     }
-    
 }
 
 function rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
@@ -229,16 +212,13 @@ function rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
     tabAppareils = retourfiltre.tabAppareils
     tabUstensiles = retourfiltre.tabUstensiles
 
-    
     FiltersIngredients = new IngredientsTags(tabIngredients)
     filterIngredient=FiltersIngredients.rendertags()
-    tagIngredients.appendChild(filterIngredient)
-    
+    tagIngredients.appendChild(filterIngredient)    
 
     filtersAppareils= new AppareilsTags(tabAppareils)
     filterAppareil = filtersAppareils.rendertags()
     tagAppareil.appendChild(filterAppareil)
-
 
     filtersUstensils= new UstensilsTags(tabUstensiles)
     filterUstensil = filtersUstensils.rendertags()

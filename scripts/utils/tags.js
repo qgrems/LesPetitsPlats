@@ -1,18 +1,19 @@
 function closeTagsIngredients(index)
 {
-  
-    let buttonquit=document.querySelector(".tagButtonIngredients")
+  console.log(index)
+    let buttonquit=document.querySelector(".tagButton")
     buttonquit.remove()
 }
 function closeTagsAppareils(index)
 {
-  let buttonquit=document.querySelector(".tagButtonAppliance")
+  console.log(index)
+  const buttonquit=document.querySelector(".tagButton")
   buttonquit.remove()
 }
 function closeTagsUstensils(index)
 {
-  let buttonquit=document.querySelector(".tagButtonUstensils")
-  buttonquit.remove(index)
+  let buttonquit=document.querySelector(".tagButton")
+  buttonquit.remove()
 }
 let indexNumber = 0
 
