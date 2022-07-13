@@ -56,7 +56,181 @@ function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUste
     
     reaffichage()
 }
+function triageTags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil,tagIngredients,FiltersIngredients,filterIngredient,tagsUstensils,filterUstensil,filtersUstensils)
+{   
+    setTimeout(()=>{
+    const searchBarre = document.getElementById('search_value')
+    let tagIngredientValid = document.querySelectorAll('.tagIngredients .tagText')
+    let tagTabIngredient = []
+    for (let i = 0 ; i< tagIngredientValid.length;i++)
+    {
+        tagTabIngredient.push(tagIngredientValid[i].innerHTML)
+    }
+    console.log(tagTabIngredient)
+    if (incrementation===0)
+        {
+            tagAppareil.innerHTML=""
+            tagIngredients.innerHTML=""
+            tagsUstensils.innerHTML=""
+            if (searchBarre.value.length >=3)
+            {
+                
+                if (type === "appliance")
+                {
+                    this.pageSection.innerHTML=""
+                    let resultatFiltreAppareils = this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
+                    this.menufiltre=resultatFiltreAppareils
+                    newFilterAppareils=resultatFiltreAppareils
+                    this.menufiltre=resultatFiltreAppareils
+                }
+    
+                if (type === "ingredients")
+                {
+                    console.log(this.menufiltre)
+                    this.pageSection.innerHTML=""
+                    let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
+                    
+                        for(let i in menu.ingredients)
+                        {
+                            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+                            {
+                                return true
+                            }
+                        }
+                        return false
+                    })
+                    newFilterIngredients=resultatFiltreIngredients
+                    this.menufiltre=resultatFiltreIngredients
+                }
+                if (type === "ustensils")
+                {
+                    this.pageSection.innerHTML=""
+                    let resultatFiltreUstensils =this.menufiltre.filter(menu=>{
 
+                        for(let i in menu.ustensils)
+                        {
+                            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+                            {
+                                return true
+                            }
+                        }
+                        return false
+                    })
+                    this.menufiltre=resultatFiltreUstensils
+                    newFilterUstensils=resultatFiltreUstensils
+                }
+            }
+            else{
+                if (type === "appliance")
+                {
+    
+                    this.pageSection.innerHTML=""
+                    let resultatFiltreAppareils =menuData.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
+                    this.menufiltre=resultatFiltreAppareils
+                    newFilterAppareils=resultatFiltreAppareils
+                    this.menufiltre=resultatFiltreAppareils
+                }
+    
+                if (type === "ingredients")
+                {
+                    
+                    this.pageSection.innerHTML=""
+                    let resultatFiltreIngredients =menuData.filter(menu=>{
+                    
+                        for(let i in menu.ingredients)
+                        {
+                            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+                            {
+                                return true
+                            }
+                        }
+                        return false
+                        
+                        //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+                    })
+                    newFilterIngredients=resultatFiltreIngredients
+                    this.menufiltre=resultatFiltreIngredients
+                }
+                if (type === "ustensils")
+                {
+                    this.pageSection.innerHTML=""
+                    let resultatFiltreUstensils =menuData.filter(menu=>{
+
+                        for(let i in menu.ustensils)
+                        {
+                            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+                            {
+                                return true
+                            }
+                            
+                        }
+                        return false
+                    })
+                    this.menufiltre=resultatFiltreUstensils
+                    newFilterUstensils=resultatFiltreUstensils
+                }
+            }
+           
+            incrementation++
+        }
+        else if (incrementation===1)
+        {
+            tagAppareil.innerHTML=""
+            tagIngredients.innerHTML=""
+            tagsUstensils.innerHTML=""
+            if (type === "appliance")
+            {
+                this.pageSection.innerHTML=""
+                let resultatFiltreAppareils =  this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
+                this.menufiltre=resultatFiltreAppareils
+                newFilterAppareils=resultatFiltreAppareils
+                this.menufiltre=resultatFiltreAppareils
+            }
+
+            if (type === "ingredients")
+            {
+                
+                this.pageSection.innerHTML=""
+                let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
+                
+                    for(let i in menu.ingredients)
+                    {
+                        if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+                        {
+                            return true
+                        }
+                    }
+                    return false
+                    
+                    //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+                })
+                newFilterIngredients=resultatFiltreIngredients
+                this.menufiltre=resultatFiltreIngredients
+            }
+            if (type === "ustensils")
+            {
+                this.pageSection.innerHTML=""
+                let resultatFiltreUstensils =this.menufiltre.filter(menu=>{
+
+                    for(let i in menu.ustensils)
+                    {
+                        if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+                        {
+                            return true
+                        }
+                        return false
+                    }
+                })
+                this.menufiltre=resultatFiltreUstensils
+                newFilterUstensils=resultatFiltreUstensils
+            }
+        }
+        
+            let retourfiltre = actualisationSelectBox(this.menufiltre)
+            rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
+       
+        reaffichage()
+    },100)} 
 //triage des Appareils
 
 function triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil,searchAppareils)
@@ -201,175 +375,7 @@ let newFilterAppareils
 let newFilterUstensils
 let newFilterIngredients
 let incrementation = 0
-function triageTags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil,tagIngredients,FiltersIngredients,filterIngredient,tagsUstensils,filterUstensil,filtersUstensils)
-{   
-    const searchBarre = document.getElementById('search_value')
-  
-    if (incrementation===0)
-        {
-            tagAppareil.innerHTML=""
-            tagIngredients.innerHTML=""
-            tagsUstensils.innerHTML=""
-            if (searchBarre.value.length >=3)
-            {
-                
-                if (type === "appliance")
-                {
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreAppareils = this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
-                    this.menufiltre=resultatFiltreAppareils
-                    newFilterAppareils=resultatFiltreAppareils
-                    this.menufiltre=resultatFiltreAppareils
-                }
-    
-                if (type === "ingredients")
-                {
-                    console.log(this.menufiltre)
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
-                    
-                        for(let i in menu.ingredients)
-                        {
-                            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                        }
-                        return false
-                        
-                        //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-                    })
-                    newFilterIngredients=resultatFiltreIngredients
-                    this.menufiltre=resultatFiltreIngredients
-                }
-                if (type === "ustensils")
-                {
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreUstensils =this.menufiltre.filter(menu=>{
 
-                        for(let i in menu.ustensils)
-                        {
-                            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                            return false
-                        }
-                    })
-                    this.menufiltre=resultatFiltreUstensils
-                    newFilterUstensils=resultatFiltreUstensils
-                }
-            }
-            else{
-                if (type === "appliance")
-                {
-    
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreAppareils =menuData.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
-                    this.menufiltre=resultatFiltreAppareils
-                    newFilterAppareils=resultatFiltreAppareils
-                    this.menufiltre=resultatFiltreAppareils
-                }
-    
-                if (type === "ingredients")
-                {
-                    
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreIngredients =menuData.filter(menu=>{
-                    
-                        for(let i in menu.ingredients)
-                        {
-                            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                        }
-                        return false
-                        
-                        //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-                    })
-                    newFilterIngredients=resultatFiltreIngredients
-                    this.menufiltre=resultatFiltreIngredients
-                }
-                if (type === "ustensils")
-                {
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreUstensils =menuData.filter(menu=>{
-
-                        for(let i in menu.ustensils)
-                        {
-                            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                            return false
-                        }
-                    })
-                    this.menufiltre=resultatFiltreUstensils
-                    newFilterUstensils=resultatFiltreUstensils
-                }
-            }
-           
-            incrementation++
-        }
-        else if (incrementation===1)
-        {
-            tagAppareil.innerHTML=""
-            tagIngredients.innerHTML=""
-            tagsUstensils.innerHTML=""
-            if (type === "appliance")
-            {
-                this.pageSection.innerHTML=""
-                let resultatFiltreAppareils =this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
-                this.menufiltre=resultatFiltreAppareils
-                newFilterAppareils=resultatFiltreAppareils
-                this.menufiltre=resultatFiltreAppareils
-            }
-
-            if (type === "ingredients")
-            {
-                
-                this.pageSection.innerHTML=""
-                let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
-                
-                    for(let i in menu.ingredients)
-                    {
-                        if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                        {
-                            return true
-                        }
-                    }
-                    return false
-                    
-                    //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-                })
-                newFilterIngredients=resultatFiltreIngredients
-                this.menufiltre=resultatFiltreIngredients
-            }
-            if (type === "ustensils")
-            {
-                this.pageSection.innerHTML=""
-                let resultatFiltreUstensils =this.menufiltre.filter(menu=>{
-
-                    for(let i in menu.ustensils)
-                    {
-                        if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                        {
-                            return true
-                        }
-                        return false
-                    }
-                })
-                this.menufiltre=resultatFiltreUstensils
-                newFilterUstensils=resultatFiltreUstensils
-            }
-        }
-        
-            let retourfiltre = actualisationSelectBox(this.menufiltre)
-            rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
-       
-        reaffichage()
-}
 function reaffichage()
 {
     this.pageSection = document.querySelector(".page_section");

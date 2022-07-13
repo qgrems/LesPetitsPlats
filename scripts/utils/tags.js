@@ -1,19 +1,14 @@
-function closeTagsIngredients(index)
+function closeTagsIngredients(event,index)
 {
-  console.log(index)
-    let buttonquit=document.querySelector(".tagButton")
-    buttonquit.remove()
+    event.target.parentElement.parentElement.remove()
 }
-function closeTagsAppareils(index)
+function closeTagsAppareils(event,index)
 {
-  console.log(index)
-  const buttonquit=document.querySelector(".tagButton")
-  buttonquit.remove()
+  event.target.parentElement.parentElement.remove()
 }
-function closeTagsUstensils(index)
+function closeTagsUstensils(event,index)
 {
-  let buttonquit=document.querySelector(".tagButton")
-  buttonquit.remove()
+  event.target.parentElement.parentElement.remove()
 }
 let indexNumber = 0
 

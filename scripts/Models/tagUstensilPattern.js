@@ -1,4 +1,4 @@
-class Tags
+class TagsUstensils
 {
     constructor(type,value,index)
     {  
@@ -20,14 +20,14 @@ class Tags
         return this._index
     }
 
-    renderTags()
+    renderTagsUstensils()
     {     
-
         const article = document.createElement('div');
-        article.classList.add("tagIngredients")
+        article.classList.add("tagUstensils")
         article.innerHTML = `
-        <div class="tagButtonIngredients"><div class="sizetexttags"><p class="tagText">${this.value}</p></div><i class="far fa-times-circle quittags" onclick=closeTagsIngredients(event,"${this.index}")></i></div>
+        <div class="tagButtonUstensils ${this.value}"><div class="sizetexttags"><p class="tagText">${this.value}</p></div> <i class="far fa-times-circle quittags" onclick=closeTagsUstensils(event,"${this.index}")></i></div>
         `
         return article
     }
+
 }

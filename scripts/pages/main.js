@@ -152,11 +152,30 @@ class App
         console.log(index)
         triageTags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
         let tag
+        let tagappliance
+        let tagUstensil
         let tagActif
         this.tags= document.querySelector("#tags");
-        tag = new Tags(type,value,index)
-        tagActif = tag.renderTags()
-        this.tags.appendChild(tagActif)
+        this.tagsAppliance = document.querySelector("#tagsAppliance")
+        this.tagsUstensile = document.querySelector("#tagUstensil")
+        if (type ==="ingredients")
+        {
+            tag = new Tags(type,value,index)
+            tagActif = tag.renderTags()
+            this.tags.appendChild(tagActif)
+        }
+        else if (type ==="appliance")
+        {
+            tagappliance = new TagsAppliance(type,value,index)
+            tagActif = tagappliance.renderTagsAppliance()
+            this.tagsAppliance.appendChild(tagActif)
+        }
+        else if (type ==="ustensils")
+        {
+            tagUstensil = new TagsUstensils(type,value,index)
+            tagActif = tagUstensil.renderTagsUstensils()
+            this.tagsUstensile.appendChild(tagActif)
+        }
     }
 }
 const app = new App()

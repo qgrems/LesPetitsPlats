@@ -213,6 +213,18 @@ ul {
     font-weight:bold;
     font-size: 20px;
 }
+.tagIngredients{
+    display: flex;
+    margin-right: 1rem;
+}
+.tagAppliance{
+    display: flex;
+    margin-right: 1rem;
+}
+.tagUstensils{
+    display: flex;
+    margin-right: 1rem;
+}
 
 .tagButtonAppliance
 {
@@ -261,6 +273,16 @@ ul {
     font-size: 22px;
 }
 #tags
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+#tagsAppliance
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+#tagUstensil
 {
     display: flex;
     flex-wrap: wrap;
