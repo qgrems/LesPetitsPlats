@@ -23,7 +23,6 @@ function actualisationSelectBox(menuRestant)
     return {tabIngredients,tabAppareils,tabUstensiles}
 }
 
-
 this.pageSection = document.querySelector(".page_section");
 let FiltersIngredients
 let filterIngredient
@@ -32,215 +31,162 @@ let filterAppareil
 let filtersUstensils
 let filterUstensil
 
+let menuFilterTags = []
+
+let menuFilterData
 let tabIngredients={}
 let tabAppareils = {}
 let tabUstensiles = {}
 let tableauingredient = {}
 
-// triage des cards avec La recherche principale + triage des tags en fonction de la recherche principale
-function triageResearch(menuData,pageSection,tagIngredients,tagAppareil,tagsUstensils,searchBarre)
-{
-    document.querySelector(".page_section").innerHTML=""
-    const input = searchBarre.value
-    tagIngredients.innerHTML=""
-    tagAppareil.innerHTML=""
-    tagsUstensils.innerHTML=""
-    pageSection.innerHTML=""
-    let resultatFiltre =menuData.recipes.filter(menu=>(menu.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.appliance.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.description.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[0].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[1].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())))
-    
-    this.menufiltre=resultatFiltre
-    this.menufiltreTags = resultatFiltre
-    this.retourfiltre = actualisationSelectBox(this.menufiltre)
+let tagIngredients = document.querySelector(".modalFilterIngredients")
+let tagAppareil = document.querySelector(".modalFilterAppareils")
+let tagsUstensils = document.querySelector(".modalFilterUstensiles")
+tag = 0
+let quitTags = document.querySelector('.quittags')
 
-    rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
-    
-    reaffichage()
-}
-function triageTags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil,tagIngredients,FiltersIngredients,filterIngredient,tagsUstensils,filterUstensil,filtersUstensils)
-{   
-    setTimeout(()=>{
+// triage des cards avec La recherche principale + triage des tags en fonction de la recherche principale
+function triageResearch(menuData,tagIngredients,tagAppareil,tagsUstensils)
+{
+
     const searchBarre = document.getElementById('search_value')
+    
+    const input = searchBarre.value
+
+        let resultatFiltre =menuData.filter(menu=>(menu.name.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.appliance.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.description.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[0].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())||menu.ingredients[1].ingredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())))
+        this.menufiltre=resultatFiltre
+
+
+        menuFilterTags = resultatFiltre
+        searchBarre.addEventListener('keyup', () =>{
+        if(search_value.value.length < 3)
+        {
+            let type
+            let value
+            Alltags(type,value,menus,tagAppareil,filtersAppareils,filterAppareil,tagIngredients,FiltersIngredients,filterIngredient,tagsUstensils,filterUstensil,filtersUstensils)
+            this.menufiltre = menus
+        }
+        })
+}
+//triage avec les tags
+this.filtreAppareil ={}
+this.filtreIngredients ={}
+this.filtreUstensils={}
+let newFilter 
+let incrementation = 0
+
+let tag2Appareils
+let tag2Ingredients
+let tag2Ustensils
+
+function Alltags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil,tagIngredients,FiltersIngredients,filterIngredient,tagsUstensils,filterUstensil,filtersUstensils,menuFilterData)
+{    
+    
+    setTimeout(()=>{
+    triageResearch(menuData,tagIngredients,tagAppareil,tagsUstensils)
+    tag2Appareils = tagAppareil
+    tag2Ingredients = tagIngredients
+    tag2Ustensils = tagsUstensils
+
+
     let tagIngredientValid = document.querySelectorAll('.tagIngredients .tagText')
-    let tagTabIngredient = []
+    this.tagTabIngredient = []
+    this.tagTabAppliance = []
+    this.tagTabUstensil = []
     for (let i = 0 ; i< tagIngredientValid.length;i++)
     {
-        tagTabIngredient.push(tagIngredientValid[i].innerHTML)
+        this.tagTabIngredient.push(tagIngredientValid[i].innerHTML)
     }
-    console.log(tagTabIngredient)
-    if (incrementation===0)
-        {
-            tagAppareil.innerHTML=""
-            tagIngredients.innerHTML=""
-            tagsUstensils.innerHTML=""
-            if (searchBarre.value.length >=3)
-            {
-                
-                if (type === "appliance")
-                {
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreAppareils = this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
-                    this.menufiltre=resultatFiltreAppareils
-                    newFilterAppareils=resultatFiltreAppareils
-                    this.menufiltre=resultatFiltreAppareils
-                }
+    let tagApplianceValid = document.querySelectorAll('.tagAppliance .tagText')
     
-                if (type === "ingredients")
-                {
-                    console.log(this.menufiltre)
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
-                    
-                        for(let i in menu.ingredients)
-                        {
-                            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                        }
-                        return false
-                    })
-                    newFilterIngredients=resultatFiltreIngredients
-                    this.menufiltre=resultatFiltreIngredients
-                }
-                if (type === "ustensils")
-                {
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreUstensils =this.menufiltre.filter(menu=>{
-
-                        for(let i in menu.ustensils)
-                        {
-                            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                        }
-                        return false
-                    })
-                    this.menufiltre=resultatFiltreUstensils
-                    newFilterUstensils=resultatFiltreUstensils
-                }
-            }
-            else{
-                if (type === "appliance")
-                {
+    for (let i = 0 ; i< tagApplianceValid.length;i++)
+    {
+       this.tagTabAppliance.push(tagApplianceValid[i].innerHTML)
+    }
     
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreAppareils =menuData.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
-                    this.menufiltre=resultatFiltreAppareils
-                    newFilterAppareils=resultatFiltreAppareils
-                    this.menufiltre=resultatFiltreAppareils
-                }
-    
-                if (type === "ingredients")
-                {
-                    
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreIngredients =menuData.filter(menu=>{
-                    
-                        for(let i in menu.ingredients)
-                        {
-                            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                        }
-                        return false
-                        
-                        //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-                    })
-                    newFilterIngredients=resultatFiltreIngredients
-                    this.menufiltre=resultatFiltreIngredients
-                }
-                if (type === "ustensils")
-                {
-                    this.pageSection.innerHTML=""
-                    let resultatFiltreUstensils =menuData.filter(menu=>{
+    let tagUstensilValid = document.querySelectorAll('.tagUstensils .tagText')
 
-                        for(let i in menu.ustensils)
-                        {
-                            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                            {
-                                return true
-                            }
-                            
-                        }
-                        return false
-                    })
-                    this.menufiltre=resultatFiltreUstensils
-                    newFilterUstensils=resultatFiltreUstensils
-                }
-            }
-           
-            incrementation++
-        }
-        else if (incrementation===1)
-        {
-            tagAppareil.innerHTML=""
-            tagIngredients.innerHTML=""
-            tagsUstensils.innerHTML=""
-            if (type === "appliance")
-            {
-                this.pageSection.innerHTML=""
-                let resultatFiltreAppareils =  this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(value.toLocaleLowerCase())))
-                this.menufiltre=resultatFiltreAppareils
-                newFilterAppareils=resultatFiltreAppareils
-                this.menufiltre=resultatFiltreAppareils
-            }
-
-            if (type === "ingredients")
-            {
-                
-                this.pageSection.innerHTML=""
-                let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
-                
-                    for(let i in menu.ingredients)
-                    {
-                        if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                        {
-                            return true
-                        }
-                    }
-                    return false
-                    
-                    //menu.ingredients[0].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || menu.ingredients[1].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-                })
-                newFilterIngredients=resultatFiltreIngredients
-                this.menufiltre=resultatFiltreIngredients
-            }
-            if (type === "ustensils")
-            {
-                this.pageSection.innerHTML=""
-                let resultatFiltreUstensils =this.menufiltre.filter(menu=>{
-
-                    for(let i in menu.ustensils)
-                    {
-                        if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-                        {
-                            return true
-                        }
-                        return false
-                    }
-                })
-                this.menufiltre=resultatFiltreUstensils
-                newFilterUstensils=resultatFiltreUstensils
-            }
-        }
-        
-            let retourfiltre = actualisationSelectBox(this.menufiltre)
-            rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
+    for (let i = 0 ; i< tagUstensilValid.length;i++)
+    {
+        this.tagTabUstensil.push(tagUstensilValid[i].innerHTML)
+    }
+        //boucle for sur chaque tagtab
        
+        for (let i in this.tagTabIngredient)
+        {
+            this.menufiltre=tritagIngredient(this.menufiltre,this.tagTabIngredient[i]) 
+        }
+        for (let i in this.tagTabAppliance)
+        {
+            this.menufiltre = this.menufiltre.filter(menu=>(menu.appliance.includes(this.tagTabAppliance)))
+        }
+        for (let i in this.tagTabUstensil)
+        {
+            this.menufiltre=triTagUstensil(this.menufiltre,this.tagTabUstensil[i])
+        }
+        // faire 3 fonctions
+   
+        triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil)
+        triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngredient)
+        triageUstensils(menuData,tagsUstensils,filtersUstensils,filterUstensil)
+        this.pageSection.innerHTML=""
+        tagIngredients.innerHTML=""
+        tagAppareil.innerHTML=""
+        tagsUstensils.innerHTML=""
+        this.retourfiltre = actualisationSelectBox(this.menufiltre)
+        rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
         reaffichage()
-    },100)} 
+    },100)
+}
+function tritagIngredient(ingredientData,tagIngredient)
+{
+    
+    let datas = ingredientData.filter(menu=>{
+        
+            for(let i in menu.ingredients)
+            {    
+                
+                if (menu.ingredients[i].ingredient.includes(tagIngredient))
+                {
+                    return true
+                }
+            }
+                return false   
+        })
+        return datas
+}
+function triTagAppliance(data)
+{
+
+}
+function triTagUstensil(ustensilData,tagUstensil)
+{
+    let datas =ustensilData.filter(menu=>{
+                console.log(tagUstensil)    
+        for(let i in menu.ustensils)
+        {
+            if(menu.ustensils[i].includes(tagUstensil))
+            {
+                return true
+            }
+        }
+        return false
+    })
+    return datas
+}
+
 //triage des Appareils
 
-function triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil,searchAppareils)
-{
+function triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil)
+{   
+    const searchAppareils = document.getElementById('appareils')
     const searchBarre = document.getElementById('search_value')
+    
     if (searchBarre.value.length<3)
     {
         tagAppareil.innerHTML=""
         const valueAppareils = searchAppareils.value
-        let resultatFiltreAppareils = menuData.recipes.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(valueAppareils.toLocaleLowerCase())))
+        let resultatFiltreAppareils = menuData.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(valueAppareils.toLocaleLowerCase())))
         this.menufiltre=resultatFiltreAppareils
         let retourappareil = actualisationSelectBox(this.menufiltre)
         tabAppareils = retourappareil.tabAppareils
@@ -249,10 +195,9 @@ function triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil,se
         tagAppareil.appendChild(filterAppareil)
     }
     else {
-        console.log(this.menufiltre)
         tagAppareil.innerHTML=""
         const valueAppareils = searchAppareils.value
-        let resultatFiltreAppareils = this.menufiltreTags.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(valueAppareils.toLocaleLowerCase())))
+        let resultatFiltreAppareils = this.menufiltre.filter(menu=>(menu.appliance.toLocaleLowerCase().includes(valueAppareils.toLocaleLowerCase())))
         this.menufiltre=resultatFiltreAppareils
         let retourappareil = actualisationSelectBox(this.menufiltre)
         tabAppareils = retourappareil.tabAppareils
@@ -264,14 +209,14 @@ function triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil,se
 }
 //triage des Ingredients
 
-function triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
-{
+function triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngredient)
+{    const searchIngredients = document.getElementById('ingredients')
     const searchBarre = document.getElementById('search_value')
     if (searchBarre.value.length<3)
     {
         tagIngredients.innerHTML=""
         const valueIngredients = searchIngredients.value
-        let resultatFilterIngredients = menuData.recipes.filter(menu=>{
+        let resultatFilterIngredients = menuData.filter(menu=>{
             for(let i in menu.ingredients)
             {
                 if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(valueIngredients.toLocaleLowerCase()))
@@ -294,7 +239,7 @@ function triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngr
     {
             tagIngredients.innerHTML=""
             const valueIngredients = searchIngredients.value
-            let resultatFilterIngredients = this.menufiltreTags.filter(menu=>{
+            let resultatFilterIngredients = this.menufiltre.filter(menu=>{
                 for(let i in menu.ingredients)
                 {
                     if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(valueIngredients.toLocaleLowerCase()))
@@ -316,14 +261,16 @@ function triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngr
 }
 
 //triage Ustensils
-function  triageUstensils(menuData,tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
-{
+function  triageUstensils(menuData,tagsUstensils,filtersUstensils,filterUstensil)
+{ 
+    const searchUstensils = document.getElementById('ustensiles')
+
     const searchBarre = document.getElementById('search_value')
     if (searchBarre.value.length<3)
     {
         tagsUstensils.innerHTML=""
         const valueUstensils = searchUstensils.value
-        let resultatFilterUstensils = menuData.recipes.filter(menu=>{
+        let resultatFilterUstensils = menuData.filter(menu=>{
         for(let i in menu.ustensils)
         {
             if (menu.ustensils[i].toLocaleLowerCase().includes(valueUstensils.toLocaleLowerCase()))
@@ -345,7 +292,7 @@ function  triageUstensils(menuData,tagsUstensils,filtersUstensils,filterUstensil
     else{
         tagsUstensils.innerHTML=""
         const valueUstensils = searchUstensils.value
-        let resultatFilterUstensils = this.menufiltreTags.filter(menu=>{
+        let resultatFilterUstensils = this.menufiltre.filter(menu=>{
         for(let i in menu.ustensils)
         {
             if (menu.ustensils[i].toLocaleLowerCase().includes(valueUstensils.toLocaleLowerCase()))
@@ -367,18 +314,72 @@ function  triageUstensils(menuData,tagsUstensils,filtersUstensils,filterUstensil
 
 }
 
-//triage avec les tags
-this.filtreAppareil ={}
-this.filtreIngredients ={}
-this.filtreUstensils={}
-let newFilterAppareils
-let newFilterUstensils
-let newFilterIngredients
-let incrementation = 0
+function closeTagsIngredients(event,index)
+{
+    
+    this.pageSection.innerHTML=""
+    let type
+    let value = ""
+    event.target.parentElement.parentElement.remove()
+    tag--
+    if(tag < 1 )
+    {
+        Alltags(type,value,menus,tag2Appareils,filtersAppareils,filterAppareil,tag2Ingredients,FiltersIngredients,filterIngredient,tag2Ustensils,filterUstensil,filtersUstensils)
+        triageIngredient(menus,value)
+        actualisationSelectBox(menus)
+    }
+    else{
+        event.target.parentElement.parentElement.remove()
+        Alltags(type,value,menus,tag2Appareils,filtersAppareils,filterAppareil,tag2Ingredients,FiltersIngredients,filterIngredient,tag2Ustensils,filterUstensil,filtersUstensils)
+        }
+        
+}
+let menus
+function allMenu(datasMenu)
+{
+    menus = datasMenu
+    
+}
+
+function closeTagsAppareils(event,index)
+{
+
+  let type
+  let value = ""
+  this.pageSection.innerHTML=""
+  tag--
+  event.target.parentElement.parentElement.remove()
+  
+  if(tag < 1 )
+  {
+
+      Alltags(type,value,menus,tag2Appareils,filtersAppareils,filterAppareil,tag2Ingredients,FiltersIngredients,filterIngredient,tag2Ustensils,filterUstensil,filtersUstensils)
+      triageAppliance(menus,value)
+      actualisationSelectBox(menus)
+  }
+}
+function closeTagsUstensils(event,index)
+{
+    let type
+    let value = ""
+    this.pageSection.innerHTML=""
+    tag--
+    event.target.parentElement.parentElement.remove()
+    if(tag <1 )
+    {
+  
+        Alltags(type,value,menus,tag2Appareils,filtersAppareils,filterAppareil,tag2Ingredients,FiltersIngredients,filterIngredient,tag2Ustensils,filterUstensil,filtersUstensils)
+        triageUstensil(menus,value)
+        actualisationSelectBox(menus)
+    }
+}
+
 
 function reaffichage()
 {
+    
     this.pageSection = document.querySelector(".page_section");
+    this.pageSection.innerHTML=""
     this.menufiltre.forEach((menu) => {
         //affichage des card menu
         const menuModel = new Menus(menu);    
@@ -416,4 +417,42 @@ function rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
     tagsUstensils.appendChild(filterUstensil)
 }
 
+
+function triageIngredient(menuData,value)
+{
+    
+   
+    let resultatFiltreIngredients =this.menufiltre.filter(menu=>{
+        for(let i in menu.ingredients)
+        {
+            if (menu.ingredients[i].ingredient.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+            {
+               
+                return true
+            }
+        }
+        return false
+    })
+    return resultatFiltreIngredients
+}
+
+function triageAppliance()
+{
+
+}
+function triageUstensil(menuData,value)
+{
+    let resultatFiltreUstensils =menuData.filter(menu=>{
+                    
+        for(let i in menu.ustensils)
+        {
+            if(menu.ustensils[i].toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+            {
+                return true
+            }
+        }
+        return false
+    })
+    return resultatFiltreUstensils
+}
 

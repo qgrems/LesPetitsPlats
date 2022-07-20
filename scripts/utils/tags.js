@@ -1,15 +1,4 @@
-function closeTagsIngredients(event,index)
-{
-    event.target.parentElement.parentElement.remove()
-}
-function closeTagsAppareils(event,index)
-{
-  event.target.parentElement.parentElement.remove()
-}
-function closeTagsUstensils(event,index)
-{
-  event.target.parentElement.parentElement.remove()
-}
+
 let indexNumber = 0
 
 function tabIndex(tabMedia) {

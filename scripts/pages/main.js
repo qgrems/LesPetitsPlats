@@ -26,6 +26,7 @@ class App
         let tableauingredient = {}
 
         this.menufiltre = [...menuData.recipes]
+
         let retourfiltre = actualisationSelectBox(this.menufiltre)
         tabIngredients = retourfiltre.tabIngredients
         tabAppareils = retourfiltre.tabAppareils
@@ -55,57 +56,62 @@ class App
        
 
         const searchIngredients = document.getElementById('ingredients')
-        const searchAppareils = document.getElementById('appareils') ;
+        const searchAppareils = document.getElementById('appareils')
         const searchUstensils = document.getElementById('ustensiles')
-
+        let type
+        let value
         const searchBarre = document.getElementById('search_value')
+        allMenu(this.menufiltre)
         searchBarre.addEventListener('keyup', () =>{
             if(search_value.value.length >=3)
             {
-                triageResearch(menuData,this.pageSection,this.tagIngredients,this.tagAppareil,this.tagsUstensils,searchBarre)
-                searchAppareils.addEventListener('keyup', () =>{
-                    if(searchAppareils.value.length>=3)
-                    {
-                        triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
-                    }
-                })
-                searchIngredients.addEventListener('keyup',() =>{
-                    if(searchIngredients.value.length>=3)
-                    { 
-                        triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
-                    }
-                })
-                // tri a l'écrit pour les tags des Ustensiles
+                Alltags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
+                // searchAppareils.addEventListener('keyup', () =>{
+                //     if(searchAppareils.value.length>=3)
+                //     {
+                //         triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil)
+                //     }
+                // })
+                // searchIngredients.addEventListener('keyup',() =>{
+                //     if(searchIngredients.value.length>=3)
+                //     { 
+                //         triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient)
+                //         console.log(filterIngredient)
+                //     }
+                // })
+                // // tri a l'écrit pour les tags des Ustensiles
                 
-                searchUstensils.addEventListener('keyup',() =>{
-                    if(searchUstensils.value.length>=3)
-                    {
-                        triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
-                    }
-                })
+                // searchUstensils.addEventListener('keyup',() =>{
+                //     if(searchUstensils.value.length>=3)
+                //     {
+                //         triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil)
+                //     }
+                // })
             }
 
-            else 
-            {
-                triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
-                triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
-                triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
-                document.querySelector(".page_section").innerHTML=""
-                this.menufiltre = [...menuData.recipes]
-                this.renderMenu();
-            }
+            //  else 
+            // {
+            //      Alltags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
+            // //     triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+            // //     triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
+            // //     triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
+            // //     document.querySelector(".page_section").innerHTML=""
+            // //     this.menufiltre = [...menuData.recipes]
+            // //     this.renderMenu();
+            //  }
         })
            
-        // tri a l'écrit pour les tags des appareils
+        //tri a l'écrit pour les tags des appareils
        
         searchAppareils.addEventListener('keyup', () =>{
             if(searchAppareils.value.length>=3)
             {
-                triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+                triageAppareils(this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+                
             }
             if (searchAppareils.value.length<3)
             {
-                triageAppareils(menuData,this.tagAppareil,this.filtersAppareils,this.filterAppareil,searchAppareils)
+                Alltags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
             }
         })
         
@@ -114,11 +120,11 @@ class App
         searchIngredients.addEventListener('keyup',() =>{
             if(searchIngredients.value.length>=3)
             { 
-                triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
+                triageIngredients(this.menufiltre,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
             }
             if(searchIngredients.value.length<3)
             { 
-                triageIngredients(menuData,this.tagIngredients,FiltersIngredients,filterIngredient,searchIngredients)
+                Alltags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
             }
         })
         // tri a l'écrit pour les tags des Ustensiles
@@ -126,11 +132,11 @@ class App
         searchUstensils.addEventListener('keyup',() =>{
             if(searchUstensils.value.length>=3)
             {
-                triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
+                triageUstensils(this.menufiltre,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
             }
             if(searchUstensils.value.length<3)
             {
-                triageUstensils(menuData,this.tagsUstensils,filtersUstensils,filterUstensil,searchUstensils)
+                Alltags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
             }
         })
     }
@@ -149,8 +155,7 @@ class App
     }
     ajouFiltreActif(type,value,index)
     {
-        console.log(index)
-        triageTags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
+        Alltags(type,value,this.menufiltre,this.tagAppareil,this.filtersAppareils,this.filterAppareil,this.tagIngredients,this.FiltersIngredients,this.filterIngredient,this.tagsUstensils,this.filterUstensil,this.filtersUstensils)
         let tag
         let tagappliance
         let tagUstensil
@@ -177,6 +182,8 @@ class App
             this.tagsUstensile.appendChild(tagActif)
         }
     }
+
 }
 const app = new App()
 app.main();
+
