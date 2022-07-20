@@ -126,9 +126,9 @@ function Alltags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil
         }
         // faire 3 fonctions
    
-        triageAppareils(menuData,tagAppareil,filtersAppareils,filterAppareil)
-        triageIngredients(menuData,tagIngredients,FiltersIngredients,filterIngredient)
-        triageUstensils(menuData,tagsUstensils,filtersUstensils,filterUstensil)
+        triageAppareils(this.menufiltre,tagAppareil,filtersAppareils,filterAppareil)
+        triageIngredients(this.menufiltre,tagIngredients,FiltersIngredients,filterIngredient)
+        triageUstensils(this.menufiltre,tagsUstensils,filtersUstensils,filterUstensil)
         this.pageSection.innerHTML=""
         tagIngredients.innerHTML=""
         tagAppareil.innerHTML=""
