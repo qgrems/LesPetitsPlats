@@ -26,8 +26,8 @@ class IngredientsTags
         }
 
 
-        const p = document.createElement('p');
-        p.classList.add("card_filter")
+        const p = document.createElement('section');
+        p.classList.add("card_filters")
             p.innerHTML = `
                 ${ingredients}
             `

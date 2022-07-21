@@ -67,6 +67,12 @@ function triageResearch(menuData,tagIngredients,tagAppareil,tagsUstensils)
             this.menufiltre = menus
         }
         })
+        if(this.menufiltre.length<1)
+        {
+                document.querySelector('#error').innerHTML="Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."      
+        }
+        else 
+        document.querySelector('#error').innerHTML="" 
 }
 //triage avec les tags
 this.filtreAppareil ={}
@@ -83,6 +89,7 @@ function Alltags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil
 {    
     
     setTimeout(()=>{
+
     triageResearch(menuData,tagIngredients,tagAppareil,tagsUstensils)
     tag2Appareils = tagAppareil
     tag2Ingredients = tagIngredients
@@ -125,7 +132,7 @@ function Alltags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil
             this.menufiltre=triTagUstensil(this.menufiltre,this.tagTabUstensil[i])
         }
         // faire 3 fonctions
-   
+
         triageAppareils(this.menufiltre,tagAppareil,filtersAppareils,filterAppareil)
         triageIngredients(this.menufiltre,tagIngredients,FiltersIngredients,filterIngredient)
         triageUstensils(this.menufiltre,tagsUstensils,filtersUstensils,filterUstensil)
@@ -135,6 +142,8 @@ function Alltags(type,value,menuData,tagAppareil,filtersAppareils,filterAppareil
         tagsUstensils.innerHTML=""
         this.retourfiltre = actualisationSelectBox(this.menufiltre)
         rechargeTags(retourfiltre,tagIngredients,tagAppareil,tagsUstensils)
+        
+    
         reaffichage()
     },100)
 }
@@ -357,6 +366,10 @@ function closeTagsAppareils(event,index)
       triageAppliance(menus,value)
       actualisationSelectBox(menus)
   }
+  else{
+    event.target.parentElement.parentElement.remove()
+    Alltags(type,value,menus,tag2Appareils,filtersAppareils,filterAppareil,tag2Ingredients,FiltersIngredients,filterIngredient,tag2Ustensils,filterUstensil,filtersUstensils)
+    }
 }
 function closeTagsUstensils(event,index)
 {
@@ -372,6 +385,10 @@ function closeTagsUstensils(event,index)
         triageUstensil(menus,value)
         actualisationSelectBox(menus)
     }
+    else{
+        event.target.parentElement.parentElement.remove()
+        Alltags(type,value,menus,tag2Appareils,filtersAppareils,filterAppareil,tag2Ingredients,FiltersIngredients,filterIngredient,tag2Ustensils,filterUstensil,filtersUstensils)
+        }
 }
 
 

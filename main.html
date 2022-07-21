@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html>
+<html lang="fr-FR">
     <head>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <meta charset="utf-8">
@@ -11,11 +11,12 @@
     </head>
     <body class="marginBody">
         <header class="header_size">
-            <img  class="header_logo" src="/logo/Lespetitsplats.png">
+            <img  class="header_logo" src="/logo/Lespetitsplats.png" alt="Logo Les petits Plats">
         </header>
         <section>
             <div id="search">
-            <input type="text" id="search_value" class="search_click" placeholder="Rechercher une recette">
+            
+            <input type="text" id="search_value" class="search_click"  placeholder="Rechercher une recette">
                 <i class="fas fa-search"></i>
             </div>
             <div id="tags"></div>
@@ -23,8 +24,9 @@
             <div id="tagUstensil"></div>
             <div id="containerSearch"></div>
         </section>
-        <main id="main"onclick="closeModalFilter()">
+        <main id="main">
             <div class="page_section"></div>
+            <p id="error"></p>
         </main>
         <script src="scripts/API/menuApi.js"></script>
 

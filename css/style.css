@@ -83,6 +83,15 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.card_filters
+{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .ingredients{
     background-color:rgb(50, 130, 247);
 }
@@ -133,7 +142,6 @@
 }
 .card_filter input::-webkit-input-placeholder {
     color:white;
-   
     font-weight: bold;
 }
 
@@ -216,6 +224,7 @@ ul {
 .tagIngredients{
     display: flex;
     margin-right: 1rem;
+    
 }
 .tagAppliance{
     display: flex;
@@ -247,6 +256,10 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+   
 }
 .tagButtonUstensils
 {
@@ -263,7 +276,10 @@ ul {
 {
     color: white;
     padding: 20px;
-    position: absolute;
+   
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
    
 }
 .quittags
@@ -271,11 +287,14 @@ ul {
     padding-left: 5rem;
     color: white;
     font-size: 22px;
+    position: absolute;
 }
 #tags
 {
+
     display: flex;
     flex-wrap: wrap;
+    
 }
 #tagsAppliance
 {
@@ -293,12 +312,15 @@ ul {
 }
 .sizetexttags
 {
-    width: 50px;
-    height: 2px;
+   
+    width: 100px;
+    height:20px;
     display: flex;
     position: absolute;
     align-items: center;
     text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 /*Mobile*/
@@ -312,7 +334,6 @@ ul {
     border-radius: 0.25rem;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1lines;
-
 }
 
 .card_header
