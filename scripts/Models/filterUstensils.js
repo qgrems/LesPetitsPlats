@@ -1,36 +1,25 @@
-class UstensilsTags
-{
-    constructor(tabUstensils)
-    {
-        this._ustensils = tabUstensils
-
+class UstensilsTags {
+    constructor(tabUstensils) {
+        this._ustensils = tabUstensils;
     }
 
-    get ustensils()
-    {
-        return this._ustensils
+    get ustensils() {
+        return this._ustensils;
     }
-
-
-    rendertags()
-    {
-        let ustensils=""
-        let tab=[]
-        let index = 0
-        for (let i in this.ustensils)
-        {
-            index++
-            ustensils += `<li  class="positionfiltercomposants ingredient" tabindex="${index}" onClick ='app.ajouFiltreActif("ustensils","${this.ustensils[i]}","${index}")'>${this.ustensils[i]}</li>`
+    rendertags() {
+        let ustensils = "";
+        let tab = [];
+        let index = 0;
+        for (let i in this.ustensils) {
+            index++;
+            ustensils += `<li  class="positionfiltercomposants ingredient" tabindex="${index}" onClick ='app.ajouFiltreActif("ustensils","${this.ustensils[i]}","${index}")'>${this.ustensils[i]}</li>`;
         }
 
-        const p = document.createElement('section');
-        p.classList.add("card_filters")
-            p.innerHTML = `
-                ${ustensils}
-            `
-            return p
+        const p = document.createElement("ul");
+        p.classList.add("card_filters");
+        p.innerHTML = `
+        ${ustensils}
+        `;
+        return p;
     }
-
-
-
-} 
+}

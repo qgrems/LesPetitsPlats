@@ -1,48 +1,37 @@
-class Search
-{
-    constructor(tabIngredients,tabAppareils,tabUstensiles)
-    {
-        this._ingredients = tabIngredients
-        this._appliance = tabAppareils
-        this._ustensils =tabUstensiles
+class Search {
+    constructor(tabIngredients, tabAppareils, tabUstensiles) {
+        this._ingredients = tabIngredients;
+        this._appliance = tabAppareils;
+        this._ustensils = tabUstensiles;
     }
-    get ingredients()
-    {
-        return this._ingredients
+    get ingredients() {
+        return this._ingredients;
     }
-    get appliance()
-    {
-        return this._appliance
+    get appliance() {
+        return this._appliance;
     }
-    get ustensils()
-    {
-        return this._ustensils
+    get ustensils() {
+        return this._ustensils;
     }
 
+    renderSearch() {
+        let ingredients = "";
+        let appliance = "";
+        let ustensils = "";
+        let tab = [];
 
-    renderSearch()
-    {
-        let ingredients=""
-        let appliance=""
-        let ustensils=""
-        let tab=[]
+        for (let i in this._ingredients) {
+            ingredients += `<li  class="positionfiltercomposants ingredient"  onClick ='app.ajouFiltreActif("ingredients","${this.ingredients[i]}")'>${this.ingredients[i]}</li>`;
+        }
+        for (let i in this._appliance) {
+            appliance += `<li class="positionfiltercomposants appliance" onClick ='app.ajouFiltreActif("appliance","${this.appliance[i]}")'>${this.appliance[i]}</li>`;
+        }
+        for (let i in this._ustensils) {
+            ustensils += `<li class="positionfiltercomposants ustensil" onClick ='app.ajouFiltreActif("ustensils","${this.ustensils[i]}")'>${this.ustensils[i]}</li>`;
+        }
 
-        for (let i in this._ingredients)
-        {
-                ingredients += `<li  class="positionfiltercomposants ingredient"  onClick ='app.ajouFiltreActif("ingredients","${this.ingredients[i]}")'>${this.ingredients[i]}</li>`
-                
-        }
-        for (let i in this._appliance)
-        {
-                appliance += `<li class="positionfiltercomposants appliance" onClick ='app.ajouFiltreActif("appliance","${this.appliance[i]}")'>${this.appliance[i]}</li>`
-        }
-        for (let i in this._ustensils)
-        {
-            ustensils += `<li class="positionfiltercomposants ustensil" onClick ='app.ajouFiltreActif("ustensils","${this.ustensils[i]}")'>${this.ustensils[i]}</li>`
-        }
-        
-    const article = document.createElement('section');
-    article.classList.add("card_filter")
+        const article = document.createElement("div");
+        article.classList.add("card_filter");
         article.innerHTML = `
         <div class="ingredients" >
             <div class="ingredientsIcon">
@@ -50,7 +39,7 @@ class Search
             <div class="arrow"><p id="arrowIngredients"><i class="fas fa-chevron-down"></i></p></div>
             </div>
             <div class="card_filer">
-                <ul class="modalFilterIngredients"></ul>
+                <section class="modalFilterIngredients"></section>
             </div>
         </div>
         
@@ -60,7 +49,7 @@ class Search
                 <div class="arrow"><p id="arrowAppareils"><i class="fas fa-chevron-down"></i></p></div>
             </div>
             <div class="card_filer">
-                <ul class="modalFilterAppareils"></ul>
+                <section class="modalFilterAppareils"></section>
             </div>
         </div>
 
@@ -70,13 +59,10 @@ class Search
                 <div class="arrow"><p id="arrowUstensils"><i class="fas fa-chevron-down"></i></p></div>
             </div>
             <div class="card_filer">
-                <ul class="modalFilterUstensiles"></ul>
+                <section class="modalFilterUstensiles"></section>
             </div>
         </div>
-        `
-        return article
+        `;
+        return article;
     }
-
-
-
-} 
+}

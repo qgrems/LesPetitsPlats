@@ -1,12 +1,9 @@
-class MenuApi
-{
-    constructor (url)
-    {
+class MenuApi {
+    constructor(url) {
         this.url = url
     }
- 
-    getMenu ()
-    {
-        return fetch(this.url).then(Res=>Res.json() )
+
+    getMenu() {
+        return fetch(this.url).then(Res => Res.json())
     }
 }

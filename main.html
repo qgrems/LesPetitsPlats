@@ -1,52 +1,64 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="fr-FR">
-    <head>
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="assets/favicon.png">
-        <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/2dfd58bbfe.js" crossorigin="anonymous"></script>
-        <title>Les petits plats</title>
-    </head>
-    <body class="marginBody">
-        <header class="header_size">
-            <img  class="header_logo" src="/logo/Lespetitsplats.png" alt="Logo Les petits Plats">
-        </header>
-        <section>
-            <div id="search">
-            
-            <input type="text" id="search_value" class="search_click"  placeholder="Rechercher une recette">
-                <i class="fas fa-search"></i>
-            </div>
-            <div id="tags"></div>
-            <div id="tagsAppliance"></div>
-            <div id="tagUstensil"></div>
-            <div id="containerSearch"></div>
-        </section>
-        <main id="main">
-            <div class="page_section"></div>
-            <p id="error"></p>
-        </main>
-        <script src="scripts/API/menuApi.js"></script>
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/2dfd58bbfe.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Les petits plats</title>
+  </head>
+  <body class="marginBody">
+    <header class="header_size">
+      <img
+        class="header_logo"
+        src="/logo/Lespetitsplats.png"
+        alt="Logo Les petits Plats"
+      />
+    </header>
+    <section>
+      <div id="search">
+        <input
+          type="text"
+          id="search_value"
+          class="search_click"
+          placeholder="Rechercher une recette"
+        />
+        <i class="fas fa-search"></i>
+      </div>
+      <div id="tags"></div>
+      <div id="tagsAppliance"></div>
+      <div id="tagUstensil"></div>
+      <div id="containerSearch"></div>
+    </section>
+    <main id="main">
+      <div class="page_section"></div>
+      <p id="error"></p>
+    </main>
+    <script src="scripts/API/menuApi.js"></script>
 
-      
-        <script src="scripts/Models/tagPattern.js"></script>
-        <script src="scripts/utils/function.js"></script>
-        <script src="scripts/Models/menuPattern.js"></script>
-        <script src="scripts/Models/ingrediantPattern.js"></script>
-        <script src="scripts/Models/searchPattern.js"></script>
-        <script src="scripts/Models/modalfilter.js"></script>
-        <script src="scripts/Models/newfilter.js"></script>
-        <script src="scripts/Models/filterIngredients.js"></script>
-        <script src="scripts/Models/filterAppareil.js"></script>
-        <script src="scripts/Models/filterUstensils.js"></script>
+    <script src="scripts/Models/tagPattern.js"></script>
+    <script src="scripts/utils/function.js"></script>
+    <script src="scripts/Models/menuPattern.js"></script>
+    <script src="scripts/Models/ingrediantPattern.js"></script>
+    <script src="scripts/Models/searchPattern.js"></script>
+    <script src="scripts/Models/modalfilter.js"></script>
 
-        <script src="scripts/Models/tagAppliancePattern.js"></script>
-        <script src="scripts/Models/tagUstensilPattern.js"></script>
-        <script src="scripts/utils/tags.js"></script>
-        <script src="scripts/utils/ingredients.js"></script>
-        <script src="scripts/utils/triage_search.js"></script>
-        <script src="scripts/pages/main.js"></script>
-    </body>
+    <script src="scripts/Models/filterIngredients.js"></script>
+    <script src="scripts/Models/filterAppareil.js"></script>
+    <script src="scripts/Models/filterUstensils.js"></script>
+
+    <script src="scripts/Models/tagAppliancePattern.js"></script>
+    <script src="scripts/Models/tagUstensilPattern.js"></script>
+    <script src="scripts/utils/tags.js"></script>
+    <script src="scripts/utils/ingredients.js"></script>
+    <script src="scripts/pages/main.js"></script>
+  </body>
 </html>
