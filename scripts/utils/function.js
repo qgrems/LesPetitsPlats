@@ -45,24 +45,57 @@ function triageResearch(menuData, tagIngredients, tagAppareil, tagsUstensils) {
 
     const input = searchBarre.value;
 
-    let resultatFiltre = menuData.filter(
-        (menu) =>
-            menu.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()) ||
-            menu.appliance.toLocaleLowerCase().includes(input.toLocaleLowerCase()) ||
-            menu.description
-                .toLocaleLowerCase()
-                .includes(input.toLocaleLowerCase()) ||
-            menu.ingredients[0].ingredient
-                .toLocaleLowerCase()
-                .includes(input.toLocaleLowerCase()) ||
-            menu.ingredients[1].ingredient
-                .toLocaleLowerCase()
-                .includes(input.toLocaleLowerCase())
-    );
+    let datasName;
+    let datasAppliance;
+    let datasIngredients;
+    let datasdescription;
+    let datasIngredient;
+    let newDatas = [];
+    for (let i in menuData) {
+        let datasPush = false;
+        datasName = menuData[i].name;
+        datasAppliance = menuData[i].appliance;
+        datasIngredients = menuData[i].ingredients;
+        datasdescription = menuData[i].description;
+        if (datasName.toLocaleLowerCase().includes(input.toLocaleLowerCase())) {
+            datasName = menuData[i].name;
+            if (!datasPush) {
+                datasPush = true;
+                newDatas.push(menuData[i]);
+            }
+        }
+        if (
+            datasAppliance.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+        ) {
+            datasAppliance = menuData[i].appliance;
+            if (!datasPush) {
+                datasPush = true;
+                newDatas.push(menuData[i]);
+            }
+        }
+        for (let j in datasIngredients) {
+            datasIngredient = datasIngredients[j].ingredient;
+            if (
+                datasIngredient.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+            ) {
+                if (!datasPush) {
+                    datasPush = true;
+                    newDatas.push(menuData[i]);
+                }
+            }
+        }
+        if (
+            datasdescription.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+        ) {
+            if (!datasPush) {
+                datasPush = true;
+                newDatas.push(menuData[i]);
+            }
+        }
+    }
+    this.menufiltre = newDatas;
 
-    this.menufiltre = resultatFiltre;
-
-    menuFilterTags = resultatFiltre;
+    menuFilterTags = newDatas;
     searchBarre.addEventListener("keyup", () => {
         if (search_value.value.length < 3) {
             let type;
@@ -84,10 +117,6 @@ function triageResearch(menuData, tagIngredients, tagAppareil, tagsUstensils) {
             this.menufiltre = menus;
         }
     });
-    if (this.menufiltre.length < 1) {
-        document.querySelector("#error").innerHTML =
-            "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
-    } else document.querySelector("#error").innerHTML = "";
 }
 //triage avec les tags
 this.filtreAppareil = {};
@@ -183,7 +212,6 @@ function Alltags(
         tagsUstensils.innerHTML = "";
         this.retourfiltre = actualisationSelectBox(this.menufiltre);
         rechargeTags(retourfiltre, tagIngredients, tagAppareil, tagsUstensils);
-
         reaffichage();
     }, 100);
 }
@@ -198,7 +226,7 @@ function tritagIngredient(ingredientData, tagIngredient) {
     });
     return datas;
 }
-
+function triTagAppliance(data) { }
 function triTagUstensil(ustensilData, tagUstensil) {
     let datas = ustensilData.filter((menu) => {
         console.log(tagUstensil);
@@ -376,20 +404,41 @@ function closeTagsIngredients(event, index) {
     let type;
     let value = "";
     event.target.parentElement.parentElement.remove();
-    Alltags(
-        type,
-        value,
-        menus,
-        tag2Appareils,
-        filtersAppareils,
-        filterAppareil,
-        tag2Ingredients,
-        FiltersIngredients,
-        filterIngredient,
-        tag2Ustensils,
-        filterUstensil,
-        filtersUstensils
-    );
+    tag--;
+    if (tag < 1) {
+        Alltags(
+            type,
+            value,
+            menus,
+            tag2Appareils,
+            filtersAppareils,
+            filterAppareil,
+            tag2Ingredients,
+            FiltersIngredients,
+            filterIngredient,
+            tag2Ustensils,
+            filterUstensil,
+            filtersUstensils
+        );
+        triageIngredient(menus, value);
+        actualisationSelectBox(menus);
+    } else {
+        event.target.parentElement.parentElement.remove();
+        Alltags(
+            type,
+            value,
+            menus,
+            tag2Appareils,
+            filtersAppareils,
+            filterAppareil,
+            tag2Ingredients,
+            FiltersIngredients,
+            filterIngredient,
+            tag2Ustensils,
+            filterUstensil,
+            filtersUstensils
+        );
+    }
 }
 let menus;
 function allMenu(datasMenu) {
@@ -400,41 +449,84 @@ function closeTagsAppareils(event, index) {
     let type;
     let value = "";
     this.pageSection.innerHTML = "";
+    tag--;
     event.target.parentElement.parentElement.remove();
-    Alltags(
-        type,
-        value,
-        menus,
-        tag2Appareils,
-        filtersAppareils,
-        filterAppareil,
-        tag2Ingredients,
-        FiltersIngredients,
-        filterIngredient,
-        tag2Ustensils,
-        filterUstensil,
-        filtersUstensils
-    );
+
+    if (tag < 1) {
+        Alltags(
+            type,
+            value,
+            menus,
+            tag2Appareils,
+            filtersAppareils,
+            filterAppareil,
+            tag2Ingredients,
+            FiltersIngredients,
+            filterIngredient,
+            tag2Ustensils,
+            filterUstensil,
+            filtersUstensils
+        );
+        triageAppliance(menus, value);
+        actualisationSelectBox(menus);
+    } else {
+        event.target.parentElement.parentElement.remove();
+        Alltags(
+            type,
+            value,
+            menus,
+            tag2Appareils,
+            filtersAppareils,
+            filterAppareil,
+            tag2Ingredients,
+            FiltersIngredients,
+            filterIngredient,
+            tag2Ustensils,
+            filterUstensil,
+            filtersUstensils
+        );
+    }
 }
 function closeTagsUstensils(event, index) {
     let type;
     let value = "";
     this.pageSection.innerHTML = "";
+    tag--;
     event.target.parentElement.parentElement.remove();
-    Alltags(
-        type,
-        value,
-        menus,
-        tag2Appareils,
-        filtersAppareils,
-        filterAppareil,
-        tag2Ingredients,
-        FiltersIngredients,
-        filterIngredient,
-        tag2Ustensils,
-        filterUstensil,
-        filtersUstensils
-    );
+    if (tag < 1) {
+        Alltags(
+            type,
+            value,
+            menus,
+            tag2Appareils,
+            filtersAppareils,
+            filterAppareil,
+            tag2Ingredients,
+            FiltersIngredients,
+            filterIngredient,
+            tag2Ustensils,
+            filterUstensil,
+            filtersUstensils
+        );
+        triageUstensil(menus, value);
+        actualisationSelectBox(menus);
+    } else {
+        event.target.parentElement.parentElement.remove();
+        Alltags(
+            type,
+            value,
+            menus,
+            tag2Appareils,
+            filtersAppareils,
+            filterAppareil,
+            tag2Ingredients,
+            FiltersIngredients,
+            filterIngredient,
+            tag2Ustensils,
+            filterUstensil,
+            filtersUstensils
+        );
+    }
 }
 
 function reaffichage() {
@@ -494,13 +586,7 @@ function triageIngredient(menuData, value) {
     return resultatFiltreIngredients;
 }
 
-function triageAppliance(menuData, input) {
-    let resultatFiltreAppliance = menuData.filter((menu) =>
-        menu.appliance.toLocaleLowerCase().includes(input.toLocaleLowerCase())
-    );
-
-    return resultatFiltreAppliance;
-}
+function triageAppliance() { }
 function triageUstensil(menuData, value) {
     let resultatFiltreUstensils = menuData.filter((menu) => {
         for (let i in menu.ustensils) {
