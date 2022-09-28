@@ -117,6 +117,10 @@ function triageResearch(menuData, tagIngredients, tagAppareil, tagsUstensils) {
             this.menufiltre = menus;
         }
     });
+    if (this.menufiltre.length < 1) {
+        document.querySelector("#error").innerHTML =
+            "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
+    } else document.querySelector("#error").innerHTML = "";
 }
 //triage avec les tags
 this.filtreAppareil = {};
